@@ -1,6 +1,6 @@
 {
   "name": "wasonar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "WhatsApp Intelligence & Resource Exhaustion Tool. Features real-time device tracking, silent RTT probing, and protocol stress testing.",
   "main": "index.js",
   "type": "module",
