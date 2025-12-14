@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+auth_info_baileys/
+*.log
+qr-code.png
+qr_code.png
+.env
+Inspo/
+
