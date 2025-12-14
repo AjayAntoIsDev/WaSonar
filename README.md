@@ -3,6 +3,7 @@
 <img src="assets/wasonar_logo.png" alt="WaSonar Logo" width="25%" />
 
 
+<img src="assets/ss.png" alt="screenshot" width="100%" />
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
