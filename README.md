@@ -29,12 +29,12 @@
 
 ### Via NPM (Recommended)
 ```bash
-npm install -g wasonar
+npm install -g wasonar-cli
 ```
 
 ### Via NPX (No installation required)
 ```bash
-npx wasonar <command>
+npx wasonar-cli <command>
 ```
 
 ### From Source
@@ -42,7 +42,6 @@ npx wasonar <command>
 git clone https://github.com/AjayAntoIsDev/wasonar.git
 cd wasonar
 npm install
-npm link
 ```
 
 
@@ -51,30 +50,30 @@ npm link
 ### 1. Login
 First, you need to authenticate with a WhatsApp account (the "scanner").
 ```bash
-wasonar login
+wasonar-cli login
 ```
 Scan the QR code that appears in your terminal.
 
 ### 2. Device Discovery
 List all devices connected to a target number.
 ```bash
-wasonar devices <target-number>
+wasonar-cli devices <target-number>
 
 # Example:
-wasonar devices 919876543210
+wasonar-cli devices 919876543210
 ```
 
 ### 3. Online Status & RTT (The "Sonar")
 The core feature. Send silent probes to detect if devices are online and measure latency.
 ```bash
 # Probe infinite times (default)
-wasonar online 919876543210
+wasonar-cli online 919876543210
 
 # Send specific number of probes
-wasonar online 919876543210 --probes 5
+wasonar-cli online 919876543210 --probes 5
 
 # Save results to file
-wasonar online 919876543210 --output ./logs
+wasonar-cli online 919876543210 --output ./logs
 ```
 *Note: PENDING/OFFLINE means the server received the message, but the target device did not acknowledge receipt.*
 
@@ -82,20 +81,20 @@ wasonar online 919876543210 --output ./logs
 Get the user's profile picture and status.
 ```bash
 # Display info and download profile picture
-wasonar profile 919876543210 --output ./profiles
+wasonar-cli profile 919876543210 --output ./profiles
 ```
 
 ### 5. Resource Exhaustion
 **⚠️ FOR EDUCATIONAL USE ONLY.** Send high-frequency oversized payloads.
 ```bash
 # Aggressive mode (Default: 250 req/s, 1KB payload)
-wasonar exhaust 919876543210
+wasonar-cli exhaust 919876543210
 
 # Slow mode (10 req/s, 500B payload)
-wasonar exhaust 919876543210 --aggression slow
+wasonar-cli exhaust 919876543210 --aggression slow
 
 # Set duration
-wasonar exhaust 919876543210 --duration 30
+wasonar-cli exhaust 919876543210 --duration 30
 ```
 
 
