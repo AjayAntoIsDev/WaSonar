@@ -49,7 +49,7 @@ npm install
 ## Usage
 
 ### 1. Login
-First, you need to authenticate with a WhatsApp account (the "scanner").
+First, you need to authenticate with a WhatsApp account.
 ```bash
 wasonar-cli login
 ```
@@ -64,7 +64,7 @@ wasonar-cli devices <target-number>
 wasonar-cli devices 919876543210
 ```
 
-### 3. Online Status & RTT (The "Sonar")
+### 3. Online Status & RTT
 The core feature. Send silent probes to detect if devices are online and measure latency.
 ```bash
 # Probe infinite times (default)
