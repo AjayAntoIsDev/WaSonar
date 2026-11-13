@@ -24,7 +24,9 @@ export async function devices(number, options) {
         connectSpinner.succeed('Connected to WhatsApp');
 
         const deviceSpinner = ora('Querying device list...').start();
-        const jid = jidNormalizedUser(`${number}@s.whatsapp.net`);
+        const rawJid = jidNormalizedUser(`${number}@s.whatsapp.net`);
+        const [exists] = await sock.onWhatsApp(rawJid);
+        const jid = exists?.exists ? exists.jid : rawJid;
         const devicesList = await sock.getUSyncDevices([jid], false, false);
 
         if (!Array.isArray(devicesList)) {
@@ -48,7 +50,10 @@ export async function devices(number, options) {
             
             // Probe all devices in parallel
             const probeResults = await Promise.all(
-                devices.map(d => sendProbe(sock, d.jid))
+                devices.map(d => {
+                    const probeJid = d.deviceId === 0 && !d.jid.includes(':') ? d.jid.replace('@', ':0@') : d.jid;
+                    return sendProbe(sock, probeJid);
+                })
             );
 
             // Attach results

@@ -34,8 +34,10 @@ export async function online(number, options) {
         connectSpinner.succeed('Connected to WhatsApp');
 
         // Fetch devices with spinner
-        const mainJid = jidNormalizedUser(`${number}@s.whatsapp.net`);
+        const rawJid = jidNormalizedUser(`${number}@s.whatsapp.net`);
         const deviceSpinner = ora('Fetching linked devices...').start();
+        const [exists] = await sock.onWhatsApp(rawJid);
+        const mainJid = exists?.exists ? exists.jid : rawJid;
         const devicesList = await sock.getUSyncDevices([mainJid], false, false);
 
         if (!Array.isArray(devicesList) || devicesList.length === 0) {
@@ -66,9 +68,10 @@ export async function online(number, options) {
             const spinner = ora({ text: 'Probing all devices...', spinner: 'dots' }).start();
 
             // Send probes in PARALLEL
-            const probePromises = devices.map(device => 
-                sendProbe(sock, device.jid).then(result => ({ ...result, device: device.label }))
-            );
+            const probePromises = devices.map(device => {
+                const probeJid = device.deviceId === 0 && !device.jid.includes(':') ? device.jid.replace('@', ':0@') : device.jid;
+                return sendProbe(sock, probeJid).then(result => ({ ...result, device: device.label }));
+            });
 
             const results = await Promise.all(probePromises);
             spinner.stop();
