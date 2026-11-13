@@ -7,10 +7,9 @@ export async function login() {
     
     try {
         const spinner = ora('Connecting to WhatsApp...').start();
-        const sock = await connectToWhatsApp();
         
         await new Promise((resolve, reject) => {
-            sock.ev.on('connection.update', (update) => {
+            connectToWhatsApp((update) => {
                 const { connection, qr } = update;
                 
                 if (qr) {
@@ -28,7 +27,7 @@ export async function login() {
                     // Start spinner again if we are reconnecting
                     if (!spinner.isSpinning) spinner.start('Reconnecting...');
                 }
-            });
+            }).catch(reject);
         });
 
         // Force exit after successful login to prevent hanging
