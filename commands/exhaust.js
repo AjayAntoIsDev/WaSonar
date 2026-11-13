@@ -50,7 +50,9 @@ export async function exhaust(number, options) {
 
         // Enumerate devices
         const deviceSpinner = ora('Enumerating target devices...').start();
-        const targetJid = jidNormalizedUser(`${number}@s.whatsapp.net`);
+        const rawJid = jidNormalizedUser(`${number}@s.whatsapp.net`);
+        const [exists] = await sock.onWhatsApp(rawJid);
+        const targetJid = exists?.exists ? exists.jid : rawJid;
         const devices = await sock.getUSyncDevices([targetJid], false, false);
         deviceSpinner.succeed(`Found ${devices.length} device(s) - all will receive payloads`);
 

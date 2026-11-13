@@ -37,7 +37,7 @@ export async function profile(number, options) {
         // Fetch status/about
         let status = null;
         try {
-            const statusResult = await sock.fetchStatus(jid);
+            const statusResult = await sock.fetchStatus(exists.jid);
             status = statusResult?.status || null;
         } catch (e) {
             // Status might be private
@@ -46,7 +46,7 @@ export async function profile(number, options) {
         // Fetch profile picture URL
         let profilePicUrl = null;
         try {
-            profilePicUrl = await sock.profilePictureUrl(jid, 'image');
+            profilePicUrl = await sock.profilePictureUrl(exists.jid, 'image');
         } catch (e) {
             // Profile pic might be private
         }
